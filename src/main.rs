@@ -1,5 +1,6 @@
 mod connectioninfo;
 mod server;
+mod game;
 
 fn main() {
     server::Server::new()

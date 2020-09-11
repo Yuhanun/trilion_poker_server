@@ -1,12 +1,14 @@
 use std::collections::HashMap;
-use std::net::{TcpListener, TcpStream};
+use std::net::TcpListener;
 use std::sync::{Arc, Mutex};
 
 use crate::connectioninfo;
+use crate::game;
 
 pub struct Server {
     listener: Arc<TcpListener>,
     connections: Arc<Mutex<HashMap<u16, connectioninfo::ConnectionInfo>>>,
+    games: Arc<Mutex<HashMap<usize, game::Game>>>,
 }
 
 impl Server {
@@ -14,6 +16,7 @@ impl Server {
         Ok(Self {
             listener: Arc::from(TcpListener::bind("127.0.0.1:6969")?),
             connections: Arc::from(Mutex::from(HashMap::new())),
+            games: Arc::from(Mutex::from(HashMap::new()))
         })
     }
 
